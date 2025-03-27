@@ -1,0 +1,94 @@
+name: 🚀 Multi-Cloud Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      provider:
+        description: 'Select cloud provider'
+        required: true
+        default: 'azure'
+        type: choice
+        options:
+          - azure
+          - aws
+          - gcp
+      azure_subscription:
+        description: 'Azure Subscription (e.g., mpn, vse, personal)'
+        required: false
+        default: 'mpn'
+      sku:
+        description: 'Azure App Service Plan SKU (e.g., B1, S1)'
+        required: false
+        default: 'B1'
+      region:
+        description: 'Region (Azure: e.g., westeurope)'
+        required: false
+        default: 'westeurope'
+
+env:
+  AZURE_RUNTIME: "NODE|18-lts"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: 📦 Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 🔐 Setup credentials
+        if: ${{ inputs.provider == 'azure' }}
+        run: echo "AZURE CREDS SELECTED"
+
+      - name: 🔐 Azure Login
+        if: ${{ inputs.provider == 'azure' }}
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets[format('AZURE_CREDENTIALS_{0}', inputs.azure_subscription)] }}
+
+      - name: ☁️ Deploy to Azure
+        if: ${{ inputs.provider == 'azure' }}
+        run: |
+          echo "Deploying to Azure with subscription: ${{ inputs.azure_subscription }}"
+          RESOURCE_GROUP=multi-cloud-${{ github.run_id }}-rg
+          WEBAPP_NAME=multi-cloud-${{ github.run_id }}
+          LOCATION=${{ inputs.region }}
+          SKU=${{ inputs.sku }}
+
+          az group create --name $RESOURCE_GROUP --location $LOCATION
+          az appservice plan create --name ${WEBAPP_NAME}-plan --resource-group $RESOURCE_GROUP --sku $SKU --is-linux
+          az webapp create --name $WEBAPP_NAME --resource-group $RESOURCE_GROUP --plan ${WEBAPP_NAME}-plan --runtime "$AZURE_RUNTIME"
+          az webapp show --name $WEBAPP_NAME --resource-group $RESOURCE_GROUP --query defaultHostName -o tsv
+
+      - name: 🔐 AWS Login
+        if: ${{ inputs.provider == 'aws' }}
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: ☁️ Deploy to AWS
+        if: ${{ inputs.provider == 'aws' }}
+        run: echo "(mocked) Deploying to AWS..."
+
+      - name: 🔐 GCP Login
+        if: ${{ inputs.provider == 'gcp' }}
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: ☁️ Deploy to GCP
+        if: ${{ inputs.provider == 'gcp' }}
+        run: echo "(mocked) Deploying to GCP..."
+
+      - name: 📄 Output deployment details
+        if: ${{ inputs.provider == 'azure' }}
+        run: |
+          echo "Azure Deployment Complete"
+          echo "URL: https://$(az webapp show --name multi-cloud-${{ github.run_id }} --resource-group multi-cloud-${{ github.run_id }}-rg --query defaultHostName -o tsv)"
+          echo "RG: multi-cloud-${{ github.run_id }}-rg"
+          echo "App: multi-cloud-${{ github.run_id }}"
+          echo "Plan SKU: ${{ inputs.sku }}"
+          echo "Region: ${{ inputs.region }}"
+          echo "Runtime: $AZURE_RUNTIME"
