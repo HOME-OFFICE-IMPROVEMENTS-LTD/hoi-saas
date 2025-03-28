@@ -12,8 +12,8 @@ instance:
     - deploy
     - multi-cloud
     - devops
-  creator: msalsouri
-  description: "Deploy to multiple cloud providers (Azure, AWS, GCP) with a single workflow."
+  creator: "msalsouri"
+  description: "Deploy to multiple cloud providers (Azure, AWS, GCP) with a single GitHub Actions workflow."
 
 
 on:
