@@ -1,12 +1,9 @@
 name: 🚀 Multi-Cloud Deployment
 
 instance:
-  name: Multi-cloud Deploy
-  iconName: web-app
-  categories:
-    - deploy
-    - multi-cloud
-    - devops
+  name: "Multi-cloud Deploy"
+  iconName: "web-app"
+  categories: ["deploy", "multi-cloud", "devops"]
 
 on:
   workflow_dispatch:
@@ -100,4 +97,4 @@ jobs:
           echo "Plan SKU: ${{ inputs.sku }}"
           echo "Region: ${{ inputs.region }}"
           echo "Runtime: $AZURE_RUNTIME"
-  
+
