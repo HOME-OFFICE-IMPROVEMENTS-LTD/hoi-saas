@@ -5,6 +5,11 @@ instance:
   iconName: "web-app"
   categories: ["deploy", "multi-cloud", "devops"]
 
+categories:
+  - deploy
+  - multi-cloud
+  - devops
+
 on:
   workflow_dispatch:
     inputs:
@@ -97,4 +102,5 @@ jobs:
           echo "Plan SKU: ${{ inputs.sku }}"
           echo "Region: ${{ inputs.region }}"
           echo "Runtime: $AZURE_RUNTIME"
+
 
