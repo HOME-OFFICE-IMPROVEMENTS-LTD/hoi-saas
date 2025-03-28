@@ -105,7 +105,9 @@ jobs:
           echo "Plan SKU: ${{ inputs.sku }}"
           echo "Region: ${{ inputs.region }}"
           echo "Runtime: $AZURE_RUNTIME"
-
+          echo "Subscription: ${{ inputs.azure_subscription }}"
+          echo "Deployment ID: ${{ github.run_id }}"
+          echo "Deployment URL: ${{ github.event.workflow_run.html_url }}"
 
 
 
