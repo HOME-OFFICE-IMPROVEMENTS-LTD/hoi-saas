@@ -1,0 +1,25 @@
+name: 🤖 AI PR Reviewer
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  review-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🧠 Run AI Review
+        uses: openai/openai-pull-request-reviewer@main
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-4
+          review-comment-style: diff
+          language: en
+
