@@ -1,7 +1,5 @@
 name: 🚀 Multi-Cloud Deployment
 
-creator: msalsouri
-
 categories:
   - deploy
   - multi-cloud
@@ -14,6 +12,9 @@ instance:
     - deploy
     - multi-cloud
     - devops
+  creator: msalsouri
+  description: "Deploy to multiple cloud providers (Azure, AWS, GCP) with a single workflow."
+
 
 on:
   workflow_dispatch:
