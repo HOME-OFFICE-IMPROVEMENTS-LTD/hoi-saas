@@ -2,16 +2,8 @@ name: 🚀 Multi-Cloud Deployment
 
 categories:
   - deploy
+  - multi-cloud
   - devops
-
-instance:
-  name: "Multi-cloud Deploy"
-  iconName: "web-app"
-  description: "Deploy to multiple cloud providers (Azure, AWS, GCP) with a single GitHub Actions workflow."
-  categories:
-    - deploy
-    - devops
-  creator: msalsouri
 
 on:
   workflow_dispatch:
@@ -105,9 +97,19 @@ jobs:
           echo "Plan SKU: ${{ inputs.sku }}"
           echo "Region: ${{ inputs.region }}"
           echo "Runtime: $AZURE_RUNTIME"
-          echo "Subscription: ${{ inputs.azure_subscription }}"
-          echo "Deployment ID: ${{ github.run_id }}"
-          echo "Deployment URL: ${{ github.event.workflow_run.html_url }}"
+
+# 📌 MUST BE LAST
+# GitHub Marketplace-compliant metadata block
+instance:
+  name: "Multi-cloud Deploy"
+  iconName: "web-app"
+  categories:
+    - deploy
+    - multi-cloud
+    - devops
+  creator: "msalsouri"
+  description: "Deploy to multiple cloud providers (Azure, AWS, GCP) with a single GitHub Actions workflow."
+
 
 
 
