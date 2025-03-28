@@ -1,0 +1,8 @@
+{
+    "runtime": "Azure Web App (Linux) - Node.js 18 LTS",
+    "description": "Multi-cloud deployment targeting Azure by default. Extendable to AWS and GCP.",
+    "provider": ["azure", "aws", "gcp"],
+    "regions": ["westeurope", "uksouth", "eastus"],
+    "sku": ["B1", "S1", "P1v2"]
+  }
+  
