@@ -1,14 +1,10 @@
 {
     "runtime": "Azure Web App (Linux) - Node.js 18 LTS",
     "description": "Multi-cloud deployment targeting Azure by default. Extendable to AWS and GCP.",
+    "creator": "Home & Office Improvements Ltd",
     "provider": ["azure", "aws", "gcp"],
     "regions": ["westeurope", "uksouth", "eastus"],
-    "sku": ["B1", "S1", "P1v2"],
-    "instance": {
-      "name": "Multi-Cloud Node App",
-      "creator": "Mohammad Al-Souri",
-      "iconName": "WebApp",
-      "categories": ["Web", "Node.js", "Cloud"]
-    }
+    "sku": ["B1", "S1", "P1v2"]
   }
+  
   
