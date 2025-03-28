@@ -1,8 +1,19 @@
 {
-    "runtime": "Azure Web App (Linux) - Node.js 18 LTS",
+    "id": "multi-cloud-deploy",
+    "title": "Multi-Cloud Deployment (Azure Default)",
     "description": "Multi-cloud deployment targeting Azure by default. Extendable to AWS and GCP.",
+    "runtime": "Azure Web App (Linux) - Node.js 18 LTS",
     "provider": ["azure", "aws", "gcp"],
     "regions": ["westeurope", "uksouth", "eastus"],
-    "sku": ["B1", "S1", "P1v2"]
-  }
+    "sku": ["B1", "S1", "P1v2"],
+    "creator": {
+      "name": "Mohammad Al-Souri",
+      "email": "msalsouri@hotmail.com"
+    },
+    "instance": {
+      "name": "Multi-Cloud WebApp Deploy",
+      "iconName": "cloud",
+      "categories": ["Web", "Cloud", "Deployment"]
+    }
+  }  
   
